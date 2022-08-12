@@ -1,0 +1,38 @@
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.main {
+    font-family: "Roboto", sans-serif;
+    line-height: 120%;
+}
+
+.foc {
+    color: #0099da;
+}
+
+.space {
+    margin-bottom: 3px;
+}
+
+.left {
+    margin-left: 10px;
+}
+
+.paperclip {
+    height: 18px;
+}
+
+#code {
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid black;
+    width: 1078px;
+}
+
+#message {
+    width: 1082px;
+    height: 200px;
+    padding: 8px;
+}

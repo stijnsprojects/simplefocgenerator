@@ -619,7 +619,9 @@
 
                     <div class="startup showonanyi2c"> &nbsp;&nbsp;&nbsp;&nbsp;// set I2C clock speed <br></div>
                     <div class="startup showonanyi2c"> &nbsp;&nbsp;&nbsp;&nbsp;Wire.setClock(400000); <br><br></div>
-
+                
+                    <div class="startup showonhalleffect"> &nbsp;&nbsp;&nbsp;&nbsp;// USE_EXTERN is default (1k - 5k recommended), change to USE_INTERN if needed <br></div>
+                    <div class="startup showonhalleffect"> &nbsp;&nbsp;&nbsp;&nbsp;sensor.pullup = Pullup::USE_EXTERN; <br></div>
                     <div class="startup showonsensor"> &nbsp;&nbsp;&nbsp;&nbsp;// initialize sensor <br></div>
                     <div class="startup showonsensor"> &nbsp;&nbsp;&nbsp;&nbsp;sensor.init(); <br></div>
                     <div class="startup showonencoder"> &nbsp;&nbsp;&nbsp;&nbsp;// enable encoder interrupts <br></div>

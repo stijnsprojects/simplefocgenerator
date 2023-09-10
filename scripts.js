@@ -61,6 +61,10 @@ function drivercheck() {
         for (var i = 0; i < hideshow.length; i++) {
             hideshow[i].style.display = "none";
         }
+        var hideshow = document.getElementsByClassName("showonsimplefocmini");
+        for (var i = 0; i < hideshow.length; i++) {
+            hideshow[i].style.display = "none";
+        }
         var hideshow = document.getElementsByClassName("showonbg431besc1");
         for (var i = 0; i < hideshow.length; i++) {
             hideshow[i].style.display = "none";
@@ -171,6 +175,19 @@ function drivercheck() {
         }
         else {
             var hideshow = document.getElementsByClassName("showonsimplefocshield");
+            for (var i = 0; i < hideshow.length; i++) {
+                hideshow[i].style.display = "none";
+            }
+        }
+
+        if (document.getElementById("boardselector").value == "simplefocmini") {
+            var hideshow = document.getElementsByClassName("showonsimplefocmini");
+            for (var i = 0; i < hideshow.length; i++) {
+                hideshow[i].style.display = "inline";
+            }
+        }
+        else {
+            var hideshow = document.getElementsByClassName("showonsimplefocmini");
             for (var i = 0; i < hideshow.length; i++) {
                 hideshow[i].style.display = "none";
             }
@@ -407,6 +424,32 @@ function sensorcheck() {
     }
     else {
         var hideshow = document.getElementsByClassName("showonpwm");
+        for (var i = 0; i < hideshow.length; i++) {
+            hideshow[i].style.display = "none";
+        }
+    }
+
+    if (document.getElementById("blocking").checked) {
+        var hideshow = document.getElementsByClassName("showonblocking");
+        for (var i = 0; i < hideshow.length; i++) {
+            hideshow[i].style.display = "inline";
+        }
+    }
+    else {
+        var hideshow = document.getElementsByClassName("showoninterrupting");
+        for (var i = 0; i < hideshow.length; i++) {
+            hideshow[i].style.display = "none";
+        }
+    }
+
+    if (document.getElementById("interrupting").checked) {
+        var hideshow = document.getElementsByClassName("showoninterrupting");
+        for (var i = 0; i < hideshow.length; i++) {
+            hideshow[i].style.display = "inline";
+        }
+    }
+    else {
+        var hideshow = document.getElementsByClassName("showoninterrupting");
         for (var i = 0; i < hideshow.length; i++) {
             hideshow[i].style.display = "none";
         }

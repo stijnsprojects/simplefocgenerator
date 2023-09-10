@@ -83,10 +83,11 @@
                     </div>
                     
                     <div class="startup showonbldc showonstepper">
-                        <label> Board selector </label>
+                        <label> Board selector: </label>
                         <select id="boardselector" onchange="drivercheck();">
                             <option value="other"> Other </option>
                             <option value="simplefocshield" class="showonbldc hideonstepper"> SimpleFOCSchield </option>
+                            <option value="simplefocmini" class="showonbldc hideonstepper"> SimpleFOCMini </option>
                             <option value="bg431besc1" class="showonbldc hideonstepper"> B-G431B-ESC1 </option>
                             <option value="l298n" class="hideonbldc showonstepper"> L298N </option>
                         </select>
@@ -96,7 +97,7 @@
             
                 <!-- settings -->
                 <div class="settings">
-                    <div class="startup showon3pwm showonsimplefocshield">
+                    <div class="startup showon3pwm showonsimplefocshield showonsimplefocmini">
                         <br>
                         <div class="space">
                             <label for="pwma"> PWM pin phase A: </label>
@@ -232,9 +233,9 @@
                     <input type="radio" id="nones" name="sensor" onclick="sensorcheck();" oninput="clearindex();">
                     <label for="nones"> None (open-loop) </label>
                     <input type="radio" id="encoder" name="sensor" onclick="sensorcheck();">
-                    <label for="encoder"> ABI ABZ encoder </label>
+                    <label for="encoder"> Encoder (ABI/ABZ) </label>
                     <input type="radio" id="halleffect" name="sensor" onclick="sensorcheck();">
-                    <label for="halleffect"> ABC UVW Hall effect </label>
+                    <label for="halleffect"> Hall effect (ABC/UVW) </label>
                     <br><br>
                     <input type="radio" id="spi" name="sensor" onclick="sensorcheck();">
                     <label for="spi"> Magnetic SPI </label>
@@ -254,6 +255,13 @@
                     <label for="analog"> Magnetic analog </label>
                     <input type="radio" id="pwm" name="sensor" onclick="sensorcheck();">
                     <label for="pwm"> Magnetic PWM </label>
+                    <div class="startup showonpwm">
+                        <br><br>
+                        <input type="radio" id="blocking" name="pwmtype" checked="checked" onclick="sensorcheck();">
+                        <label for="blocking"> Blocking </label>
+                        <input type="radio" id="interrupting" name="pwmtype" onclick="sensorcheck();">
+                        <label for="interrupting"> Interrupting </label>
+                    </div>
                 </div>
 
                 <!-- settings -->
@@ -376,11 +384,11 @@
                     </div>
                     <div>
                         <br class="showonothercurrentboard">
-                        <label> Board selector </label>
+                        <label> Board selector: </label>
                         <select id="currentboardselector" onchange="currentsensecheck();">
                             <option value="other"> Other </option>
-                            <option value="simplefocshield"> SimpleFOCSchield </option>
-                            <option value="bg431besc1"> B-G431B-ESC1 </option>
+                            <option value="simplefocshield" class="showonbldc hideonstepper"> SimpleFOCSchield </option>
+                            <option value="bg431besc1" class="showonbldc hideonstepper"> B-G431B-ESC1 </option>
                         </select>
                     </div>
                 </div>
@@ -460,11 +468,11 @@
             <div class="settings">
                 <div class="startup showonsensor">
                     <br>
-                    <label for="pvel"> Velocity PID controller P value: </label>
+                    <label for="pvel"> Velocity PID controller: K<sub>P</sub>: </label>
                     <input type="text" id="pvel" onchange="changevar(event);" oninput="pvelempty();">
-                    <label for="ivel"> I value: </label>
+                    <label for="ivel"> K<sub>I</sub>: </label>
                     <input type="text" id="ivel" onchange="changevar(event);" oninput="ivelempty();">
-                    <label for="dvel"> D value: </label>
+                    <label for="dvel"> K<sub>D</sub>: </label>
                     <input type="text" id="dvel" onchange="changevar(event);" oninput="dvelempty();">
                     <div class="startup showonangle">
                         <br><br>
@@ -481,7 +489,7 @@
                 <input type="radio" id="voltage" name="torquecontroller" onclick="torquecontrollercheck();">
                 <label for="voltage"> Voltage (default) </label>
                 <input class="showoncurrentsense" type="radio" id="dccurrent" name="torquecontroller" onclick="torquecontrollercheck();">
-                <label class="showoncurrentsense" for="dccurrent"> DC currecnt </label>
+                <label class="showoncurrentsense" for="dccurrent"> DC current </label>
                 <input class="showoncurrentsense" type="radio" id="foccurrent" name="torquecontroller" onclick="torquecontrollercheck();">
                 <label class="showoncurrentsense" for="foccurrent"> FOC current </label>
             </div>
@@ -552,6 +560,9 @@
                     
                     <div class="startup showonsimplefocshield"> // BLDC driver instance BLDCDriver3PWM(phA, phB, phC, (en)) <br></div>
                     <div class="startup showonsimplefocshield"> BLDCDriver3PWM driver = BLDCDriver3PWM(<span id="var2pwma"></span><span id="var2pwmb"></span><span id="var2pwmc"></span><span id="var2enable3pwm"></span>); <br><br></div>
+
+                    <div class="startup showonsimplefocmini"> // BLDC driver instance BLDCDriver3PWM(phA, phB, phC, (en)) <br></div>
+                    <div class="startup showonsimplefocmini"> BLDCDriver3PWM driver = BLDCDriver3PWM(<span id="var2pwma"></span><span id="var2pwmb"></span><span id="var2pwmc"></span><span id="var2enable3pwm"></span>); <br><br></div>
                     
                     <div class="startup showonl298n"> // Stepper driver instance StepperDriver2PWM(pwm1, dir1, pwm2, dir2, (en1), (en2)) <br></div>
                     <div class="startup showonl298n"> StepperDriver2PWM driver = StepperDriver2PWM(<span id="var2pwmphase1"></span><span id="var2dirphase1"></span><span id="var2pwmphase2"></span><span id="var2dirphase2"></span><span id="var2enable2pwm21"></span><span id="var2enable2pwm22"></span>); <br><br></div>
@@ -580,8 +591,11 @@
                     <div class="startup showonanalog"> MagneticSensorAnalog sensor = MagneticSensorAnalog(<span id="varanalogpin"></span><span id="varmin"></span><span id="varmax"></span>); <br><br></div>
                     
                     <div class="startup showonpwm"> // position / angle sensor instance MagneticSensorPWM(PWM pin, minimum pulse, maximum pulse) <br></div>
-                    <div class="startup showonpwm"> MagneticSensorPWM sensor = MagneticSensorPWM(<span id="varpwmpin"></span><span id="vartmin"></span><span id="vartmax"></span>); <br><br></div>
-
+                    <div class="startup showonpwm"> MagneticSensorPWM sensor = MagneticSensorPWM(<span id="varpwmpin"></span><span id="vartmin"></span><span id="vartmax"></span>); <br></div>
+                    <div class="startup showonblocking"><br></div>
+                    <div class="startup showoninterrupting"> // create the buffering function <br></div>
+                    <div class="startup showoninterrupting"> void doPWM(){sensor.handlePWM();} <br><br></div>
+                    
                     <div class="startup showonas5147"> // position / angle sensor instance MagneticSensorSPI(chip select, AS5147_SPI) <br></div>
                     <div class="startup showonas5147"> MagneticSensorSPI sensor = MagneticSensorSPI(<span id="varcsas5147"></span>, AS5147_SPI); <br><br></div>
                     
@@ -629,6 +643,8 @@
                     <div class="startup showonencoder"> &nbsp;&nbsp;&nbsp;&nbsp;sensor.enableInterrupts(doA, doB<span class="startup showonindex">, doIndex</span>); <br></div>
                     <div class="startup showonhalleffect"> &nbsp;&nbsp;&nbsp;&nbsp;// enable Hall effect interrupts <br></div>
                     <div class="startup showonhalleffect"> &nbsp;&nbsp;&nbsp;&nbsp;sensor.enableInterrupts(doA, doB, doC); <br></div>
+                    <div class="startup showoninterrupting"> &nbsp;&nbsp;&nbsp;&nbsp;// enable PWM interrupts <br></div>
+                    <div class="startup showoninterrupting"> &nbsp;&nbsp;&nbsp;&nbsp;sensor.enableInterrupt(doPWM); <br><br></div>
                     <div class="startup showonsensor"> &nbsp;&nbsp;&nbsp;&nbsp;// link sensor to motor <br></div>
                     <div class="startup showonsensor"> &nbsp;&nbsp;&nbsp;&nbsp;motor.linkSensor(&#38;sensor); <br><br></div>
 
@@ -678,7 +694,7 @@
                     <div class="startup showontrapezoid120"> &nbsp;&nbsp;&nbsp;&nbsp;// set FOC modulation type to trapezoidal 120 <br></div>
                     <div class="startup showontrapezoid120"> &nbsp;&nbsp;&nbsp;&nbsp;motor.foc_modulation = FOCModulationType::Trapezoid_120; <br><br></div>
 
-                    <div class="startup showontrapezoid150"> &nbsp;&nbsp;&nbsp;&nbsp;// set FOC modulation type to trapezoidal 150<br></div>
+                    <div class="startup showontrapezoid150"> &nbsp;&nbsp;&nbsp;&nbsp;// set FOC modulation type to trapezoidal 150 <br></div>
                     <div class="startup showontrapezoid150"> &nbsp;&nbsp;&nbsp;&nbsp;motor.foc_modulation = FOCModulationType::Trapezoid_150; <br><br></div>
 
                     <div class="startup showonspacevectorpwm"> &nbsp;&nbsp;&nbsp;&nbsp;// set FOC modulation type to space vector modulation <br></div>
@@ -689,8 +705,8 @@
                     <div class="startup showonpvel"> &nbsp;&nbsp;&nbsp;&nbsp;motor.PID_velocity.P = <span id="varpvel"></span>; <br></div>
                     <div class="startup showonivel"> &nbsp;&nbsp;&nbsp;&nbsp;motor.PID_velocity.I = <span id="varivel"></span>; <br></div>
                     <div class="startup showondvel"> &nbsp;&nbsp;&nbsp;&nbsp;motor.PID_velocity.D = <span id="vardvel"></span>; <br></div>
-                    <div class="startup showonpvel"> &nbsp;&nbsp;&nbsp;&nbsp;// angle / position P controller <br></div>
-                    <div class="startup showonpvel"> &nbsp;&nbsp;&nbsp;&nbsp;motor.P_angle.P = <span id="varpangle"></span>; <br></div>
+                    <div class="startup showonpangle"> &nbsp;&nbsp;&nbsp;&nbsp;// angle / position P controller <br></div>
+                    <div class="startup showonpangle"> &nbsp;&nbsp;&nbsp;&nbsp;motor.P_angle.P = <span id="varpangle"></span>; <br></div>
 
                     <div class="startup showonvoltagelimit"> &nbsp;&nbsp;&nbsp;&nbsp;// set motor voltage limit, this limits Vq <br></div>
                     <div class="startup showonvoltagelimit"> &nbsp;&nbsp;&nbsp;&nbsp;motor.voltage_limit = <span id="varvoltagelimit"></span>; <br></div>

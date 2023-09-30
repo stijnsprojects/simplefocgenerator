@@ -167,7 +167,7 @@
                         <img src="img2pwm4.png" alt="2pwm4" style="height: 300px">
                     </div>
         
-                    <div class="startup showon2pwm2 showonl298n">
+                    <div class="startup showon2pwm2">
                         <br>
                         <div class="space">
                             <label for="pwmphase1"> PWM pin phase 1: </label>
@@ -191,7 +191,7 @@
                         <img src="img2pwm2.png" alt="2pwm2" style="height: 300px">
                     </div>
         
-                    <div class="startup showon4pwm">
+                    <div class="startup showon4pwm showonl298n">
                         <br>
                         <div class="space">
                             <label for="pwm1a"> PWM pin phase 1 A: </label>
@@ -552,7 +552,7 @@
                     <div class="startup showon2pwm2"> // Stepper driver instance StepperDriver2PWM(pwm1, dir1, pwm2, dir2, (en1), (en2)) <br></div>
                     <div class="startup showon2pwm2"> StepperDriver2PWM driver = StepperDriver2PWM(<span id="varpwmphase1"></span><span id="vardirphase1"></span><span id="varpwmphase2"></span><span id="vardirphase2"></span><span id="varenable2pwm21"></span><span id="varenable2pwm22"></span>); <br><br></div>
                     
-                    <div class="startup showon4pwm"> // Stepper driver instance StepperDriver4PWM(ph1A, ph1B, ph2A, ph2B, (en1), (en2))<br></div>
+                    <div class="startup showon4pwm"> // Stepper driver instance StepperDriver4PWM(ph1A, ph1B, ph2A, ph2B, (en1), (en2)) <br></div>
                     <div class="startup showon4pwm"> StepperDriver4PWM driver = StepperDriver4PWM(<span id="varpwm1a"></span><span id="varpwm1b"></span><span id="varpwm2a"></span><span id="varpwm2b"></span><span id="varenable4pwm1"></span><span id="varenable4pwm2"></span>); <br><br></div>
 
                     <div class="startup showonbg431besc1"> // BLDC driver instance BLDCDriver6PWM(phA_h, phA_l, phB_h, phB_l, phC_h, phC_l, (en)) <br></div>
@@ -564,8 +564,8 @@
                     <div class="startup showonsimplefocmini"> // BLDC driver instance BLDCDriver3PWM(phA, phB, phC, (en)) <br></div>
                     <div class="startup showonsimplefocmini"> BLDCDriver3PWM driver = BLDCDriver3PWM(<span id="var2pwma"></span><span id="var2pwmb"></span><span id="var2pwmc"></span><span id="var2enable3pwm"></span>); <br><br></div>
                     
-                    <div class="startup showonl298n"> // Stepper driver instance StepperDriver2PWM(pwm1, dir1, pwm2, dir2, (en1), (en2)) <br></div>
-                    <div class="startup showonl298n"> StepperDriver2PWM driver = StepperDriver2PWM(<span id="var2pwmphase1"></span><span id="var2dirphase1"></span><span id="var2pwmphase2"></span><span id="var2dirphase2"></span><span id="var2enable2pwm21"></span><span id="var2enable2pwm22"></span>); <br><br></div>
+                    <div class="startup showonl298n"> // Stepper driver instance StepperDriver4PWM(ph1A, ph1B, ph2A, ph2B, (en1), (en2)) <br></div>
+                    <div class="startup showonl298n"> StepperDriver4PWM driver = StepperDriver4PWM(<span id="varpwm1a"></span><span id="varpwm1b"></span><span id="varpwm2a"></span><span id="varpwm2b"></span><span id="varenable4pwm1"></span><span id="varenable4pwm2"></span>); <br><br></div>
 
 
                     <div class="startup showonencoder"> // position / angle sensor instance Encoder(encA, encB , cpr, (index)) <br></div>

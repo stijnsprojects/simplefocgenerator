@@ -5,7 +5,6 @@ window.onload = function () {
     }
 }
 
-
 function changevar(event) {
     try {
         var value = event.target.value;
@@ -25,7 +24,6 @@ function changevarwithcomma(event) {
     } 
     catch (e) {}
 }
-
 
 function motorcheck() {
     if (document.getElementById("bldc").checked) {
@@ -57,85 +55,29 @@ function drivercheck() {
             hideshow[i].style.display = "inline";
         }
 
-        var hideshow = document.getElementsByClassName("showonsimplefocshield");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-        var hideshow = document.getElementsByClassName("showonsimplefocmini");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-        var hideshow = document.getElementsByClassName("showonbg431besc1");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-        var hideshow = document.getElementsByClassName("showonl298n");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
+        var driveroptions = ["simplefocshield", "simplefocmini", "bg431besc1", "l298n"];
 
-        if (document.getElementById("3pwm").checked) {
-            var hideshow = document.getElementsByClassName("showon3pwm");
-            for (var i = 0; i < hideshow.length; i++) {
-                hideshow[i].style.display = "inline";
-            }
-        }
-        else {
-            var hideshow = document.getElementsByClassName("showon3pwm");
-            for (var i = 0; i < hideshow.length; i++) {
-                hideshow[i].style.display = "none";
+        for (var i = 0; i < driveroptions.length; i++) {
+            var hideshow = document.getElementsByClassName("showon" + driveroptions[i]);
+            for (var j = 0; j < hideshow.length; j++) {
+                hideshow[j].style.display = "none";
             }
         }
 
-        if (document.getElementById("6pwm").checked) {
-            var hideshow = document.getElementsByClassName("showon6pwm");
-            for (var i = 0; i < hideshow.length; i++) {
-                hideshow[i].style.display = "inline";
-            }
-        }
-        else {
-            var hideshow = document.getElementsByClassName("showon6pwm");
-            for (var i = 0; i < hideshow.length; i++) {
-                hideshow[i].style.display = "none";
-            }
-        }
+        var pwmoptions = ["3pwm", "6pwm", "2pwm4", "2pwm2", "4pwm"];
 
-        if (document.getElementById("2pwm4").checked) {
-            var hideshow = document.getElementsByClassName("showon2pwm4");
-            for (var i = 0; i < hideshow.length; i++) {
-                hideshow[i].style.display = "inline";
+        for (var i = 0; i < pwmoptions.length; i++) {
+            if (document.getElementById(pwmoptions[i]).checked) {
+                var hideshow = document.getElementsByClassName("showon" + pwmoptions[i]);
+                for (var j = 0; j < hideshow.length; j++) {
+                    hideshow[j].style.display = "inline";
+                }
             }
-        }
-        else {
-            var hideshow = document.getElementsByClassName("showon2pwm4");
-            for (var i = 0; i < hideshow.length; i++) {
-                hideshow[i].style.display = "none";
-            }
-        }
-
-        if (document.getElementById("2pwm2").checked) {
-            var hideshow = document.getElementsByClassName("showon2pwm2");
-            for (var i = 0; i < hideshow.length; i++) {
-                hideshow[i].style.display = "inline";
-            }
-        }
-        else {
-            var hideshow = document.getElementsByClassName("showon2pwm2");
-            for (var i = 0; i < hideshow.length; i++) {
-                hideshow[i].style.display = "none";
-            }
-        }
-
-        if (document.getElementById("4pwm").checked) {
-            var hideshow = document.getElementsByClassName("showon4pwm");
-            for (var i = 0; i < hideshow.length; i++) {
-                hideshow[i].style.display = "inline";
-            }
-        }
-        else {
-            var hideshow = document.getElementsByClassName("showon4pwm");
-            for (var i = 0; i < hideshow.length; i++) {
-                hideshow[i].style.display = "none";
+            else {
+                var hideshow = document.getElementsByClassName("showon" + pwmoptions[i]);
+                for (var j = 0; j < hideshow.length; j++) {
+                    hideshow[j].style.display = "none";
+                }
             }
         }
     }
@@ -146,76 +88,29 @@ function drivercheck() {
             hideshow[i].style.display = "none";
         }
 
-        var hideshow = document.getElementsByClassName("showon3pwm");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-        var hideshow = document.getElementsByClassName("showon6pwm");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-        var hideshow = document.getElementsByClassName("showon2pwm4");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-        var hideshow = document.getElementsByClassName("showon2pwm2");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-        var hideshow = document.getElementsByClassName("showon4pwm");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
+        var pwmoptions = ["3pwm", "6pwm", "2pwm4", "2pwm2", "4pwm"];
 
-        if (document.getElementById("boardselector").value == "simplefocshield") {
-            var hideshow = document.getElementsByClassName("showonsimplefocshield");
-            for (var i = 0; i < hideshow.length; i++) {
-                hideshow[i].style.display = "inline";
-            }
-        }
-        else {
-            var hideshow = document.getElementsByClassName("showonsimplefocshield");
-            for (var i = 0; i < hideshow.length; i++) {
-                hideshow[i].style.display = "none";
+        for (var i = 0; i < pwmoptions.length; i++) {
+            var hideshow = document.getElementsByClassName("showon" + pwmoptions[i]);
+            for (var j = 0; j < hideshow.length; j++) {
+                hideshow[j].style.display = "none";
             }
         }
 
-        if (document.getElementById("boardselector").value == "simplefocmini") {
-            var hideshow = document.getElementsByClassName("showonsimplefocmini");
-            for (var i = 0; i < hideshow.length; i++) {
-                hideshow[i].style.display = "inline";
-            }
-        }
-        else {
-            var hideshow = document.getElementsByClassName("showonsimplefocmini");
-            for (var i = 0; i < hideshow.length; i++) {
-                hideshow[i].style.display = "none";
-            }
-        }
+        var boardselectoroptions = ["simplefocshield", "simplefocmini", "bg431besc1", "l298n"];
 
-        if (document.getElementById("boardselector").value == "bg431besc1") {
-            var hideshow = document.getElementsByClassName("showonbg431besc1");
-            for (var i = 0; i < hideshow.length; i++) {
-                hideshow[i].style.display = "inline";
+        for (var i = 0; i < boardselectoroptions.length; i++) {
+            if (document.getElementById("boardselector").value == boardselectoroptions[i]) {
+                var hideshow = document.getElementsByClassName("showon" + boardselectoroptions[i]);
+                for (var j = 0; j < hideshow.length; j++) {
+                    hideshow[j].style.display = "inline";
+                }
             }
-        }
-        else {
-            var hideshow = document.getElementsByClassName("showonbg431besc1");
-            for (var i = 0; i < hideshow.length; i++) {
-                hideshow[i].style.display = "none";
-            }
-        }
-
-        if (document.getElementById("boardselector").value == "l298n") {
-            var hideshow = document.getElementsByClassName("showonl298n");
-            for (var i = 0; i < hideshow.length; i++) {
-                hideshow[i].style.display = "inline";
-            }
-        }
-        else {
-            var hideshow = document.getElementsByClassName("showonl298n");
-            for (var i = 0; i < hideshow.length; i++) {
-                hideshow[i].style.display = "none";
+            else {
+                var hideshow = document.getElementsByClassName("showon" + boardselectoroptions[i]);
+                for (var j = 0; j < hideshow.length; j++) {
+                    hideshow[j].style.display = "none";
+                }
             }
         }
     }
@@ -243,29 +138,20 @@ function sensorcheck() {
         }
     }
 
-    if (document.getElementById("encoder").checked) {
-        var hideshow = document.getElementsByClassName("showonencoder");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
+    var sensoroptions = ["encoder", "halleffect", "analog", "pwm", "blocking", "interrupting"];
+    
+    for (var i = 0; i < sensoroptions.length; i++) {
+        if (document.getElementById(sensoroptions[i]).checked) {
+            var hideshow = document.getElementsByClassName("showon" + sensoroptions[i]);
+            for (var j = 0; j < hideshow.length; j++) {
+                hideshow[j].style.display = "inline";
+            }
         }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showonencoder");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
-
-    if (document.getElementById("halleffect").checked) {
-        var hideshow = document.getElementsByClassName("showonhalleffect");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showonhalleffect");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
+        else {
+            var hideshow = document.getElementsByClassName("showon" + sensoroptions[i]);
+            for (var j = 0; j < hideshow.length; j++) {
+                hideshow[j].style.display = "none";
+            }
         }
     }
 
@@ -402,58 +288,6 @@ function sensorcheck() {
                 hideshow[i].style.display = "none";
             }
     }
-
-    if (document.getElementById("analog").checked) {
-        var hideshow = document.getElementsByClassName("showonanalog");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showonanalog");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
-
-    if (document.getElementById("pwm").checked) {
-        var hideshow = document.getElementsByClassName("showonpwm");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showonpwm");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
-
-    if (document.getElementById("blocking").checked) {
-        var hideshow = document.getElementsByClassName("showonblocking");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showoninterrupting");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
-
-    if (document.getElementById("interrupting").checked) {
-        var hideshow = document.getElementsByClassName("showoninterrupting");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showoninterrupting");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
 }
 
 function currentsensecheck() {
@@ -573,163 +407,61 @@ function currentsensecheck() {
 }
 
 function motioncontrollercheck() {
-    if (document.getElementById("velocity").checked) {
-        var hideshow = document.getElementsByClassName("showonvelocity");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showonvelocity");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
 
-    if (document.getElementById("angle").checked) {
-        var hideshow = document.getElementsByClassName("showonangle");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showonangle");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
+    var motioncontrolleroptions = ["velocity", "angle", "torque", "velocityopenloop", "angleopenloop"];
 
-    if (document.getElementById("torque").checked) {
-        var hideshow = document.getElementsByClassName("showontorque");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
+    for (var i = 0; i < motioncontrolleroptions.length; i++) {
+        if (document.getElementById(motioncontrolleroptions[i]).checked) {
+            var hideshow = document.getElementsByClassName("showon" + motioncontrolleroptions[i]);
+            for (var j = 0; j < hideshow.length; j++) {
+                hideshow[j].style.display = "inline";
+            }
         }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showontorque");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
-
-    if (document.getElementById("velocityopenloop").checked) {
-        var hideshow = document.getElementsByClassName("showonvelocityopenloop");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showonvelocityopenloop");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
-
-    if (document.getElementById("angleopenloop").checked) {
-        var hideshow = document.getElementsByClassName("showonangleopenloop");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showonangleopenloop");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
+        else {
+            var hideshow = document.getElementsByClassName("showon" + motioncontrolleroptions[i]);
+            for (var j = 0; j < hideshow.length; j++) {
+                hideshow[j].style.display = "none";
+            }
         }
     }
 }
 
 function torquecontrollercheck() {
-    if (document.getElementById("voltage").checked) {
-        var hideshow = document.getElementsByClassName("showonvoltage");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showonvoltage");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
 
-    if (document.getElementById("dccurrent").checked) {
-        var hideshow = document.getElementsByClassName("showondccurrent");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showondccurrent");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
+    var torquecontrolleroptions = ["voltage", "dccurrent", "foccurrent"];
 
-    if (document.getElementById("foccurrent").checked) {
-        var hideshow = document.getElementsByClassName("showonfoccurrent");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
+    for (var i = 0; i < torquecontrolleroptions.length; i++) {
+        if (document.getElementById(torquecontrolleroptions[i]).checked) {
+            var hideshow = document.getElementsByClassName("showon" + torquecontrolleroptions[i]);
+            for (var j = 0; j < hideshow.length; j++) {
+                hideshow[j].style.display = "inline";
+            }
         }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showonfoccurrent");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
+        else {
+            var hideshow = document.getElementsByClassName("showon" + torquecontrolleroptions[i]);
+            for (var j = 0; j < hideshow.length; j++) {
+                hideshow[j].style.display = "none";
+            }
         }
     }
 }
 
 function focmodulationcheck() {
-    if (document.getElementById("sinepwm").checked) {
-        var hideshow = document.getElementsByClassName("showonsinepwm");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showonsinepwm");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
 
-    if (document.getElementById("trapezoid120").checked) {
-        var hideshow = document.getElementsByClassName("showontrapezoid120");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showontrapezoid120");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
+    var focmodulationoptions = ["sinepwm", "trapezoid120", "trapezoid150", "spacevectorpwm"];
 
-    if (document.getElementById("trapezoid150").checked) {
-        var hideshow = document.getElementsByClassName("showontrapezoid150");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
+    for (var i = 0; i < focmodulationoptions.length; i++) {
+        if (document.getElementById(focmodulationoptions[i]).checked) {
+            var hideshow = document.getElementsByClassName("showon" + focmodulationoptions[i]);
+            for (var j = 0; j < hideshow.length; j++) {
+                hideshow[j].style.display = "inline";
+            }
         }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showontrapezoid150");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
-
-    if (document.getElementById("spacevectorpwm").checked) {
-        var hideshow = document.getElementsByClassName("showonspacevectorpwm");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showonspacevectorpwm");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
+        else {
+            var hideshow = document.getElementsByClassName("showon" + focmodulationoptions[i]);
+            for (var j = 0; j < hideshow.length; j++) {
+                hideshow[j].style.display = "none";
+            }
         }
     }
 }
@@ -764,161 +496,24 @@ function monitoringcheck() {
     }
 }
 
-
-function indexempty() {
-    if (document.getElementById("i").value != "") {
-        var hideshow = document.getElementsByClassName("showonindex");
+function emptycheck(property) {
+    if (document.getElementById(property).value != "") {
+        var hideshow = document.getElementsByClassName("showon" + property);
         for (var i = 0; i < hideshow.length; i++) {
             hideshow[i].style.display = "inline";
         }
     }
     else {
-        var hideshow = document.getElementsByClassName("showonindex");
+        var hideshow = document.getElementsByClassName("showon" + property);
         for (var i = 0; i < hideshow.length; i++) {
             hideshow[i].style.display = "none";
         }
     }
 }
-
-function psuvoltageempty() {
-    if (document.getElementById("psuvoltage").value != "") {
-        var hideshow = document.getElementsByClassName("showonpsuvoltage");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showonpsuvoltage");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
-}
-
-function drivervoltagelimitempty() {
-    if (document.getElementById("drivervoltagelimit").value != "") {
-        var hideshow = document.getElementsByClassName("showondrivervoltagelimit");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showondrivervoltagelimit");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
-}
-
-function voltagelimitempty() {
-    if (document.getElementById("voltagelimit").value != "") {
-        var hideshow = document.getElementsByClassName("showonvoltagelimit");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showonvoltagelimit");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
-}
-
-function velocitylimitempty() {
-    if (document.getElementById("velocitylimit").value != "") {
-        var hideshow = document.getElementsByClassName("showonvelocitylimit");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showonvelocitylimit");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
-}
-
-function currentlimitempty() {
-    if (document.getElementById("currentlimit").value != "") {
-        var hideshow = document.getElementsByClassName("showoncurrentlimit");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showoncurrentlimit");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
-}
-
-function pvelempty() {
-    if (document.getElementById("pvel").value != "") {
-        var hideshow = document.getElementsByClassName("showonpvel");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showonpvel");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
-}
-
-function ivelempty() {
-    if (document.getElementById("ivel").value != "") {
-        var hideshow = document.getElementsByClassName("showonivel");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showonivel");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
-}
-
-function dvelempty() {
-    if (document.getElementById("dvel").value != "") {
-        var hideshow = document.getElementsByClassName("showondvel");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showondvel");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
-}
-
-function pangleempty() {
-    if (document.getElementById("pangle").value != "") {
-        var hideshow = document.getElementsByClassName("showonpangle");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "inline";
-        }
-    }
-    else {
-        var hideshow = document.getElementsByClassName("showonpangle");
-        for (var i = 0; i < hideshow.length; i++) {
-            hideshow[i].style.display = "none";
-        }
-    }
-}
-
 
 function clearindex() {
     document.getElementById("i").value = ""
-    indexempty()
+    emptycheck("i");
 }
 
 function copycode() {

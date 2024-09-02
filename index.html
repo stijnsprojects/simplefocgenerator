@@ -21,7 +21,10 @@
     <body>
         <div class="main">
             <h1> <a href="https://github.com/stijnsprojects/simplefocgenerator" target="_blank" rel="noopener noreferrer">Simple<span class="foc">FOC</span>Generator</a> by <a href="https://www.youtube.com/c/StijnsProjects"  target="_blank" rel="noopener noreferrer"> Stijns Projects <img src="paperclip.svg" alt="link" style="height: 21px;"></a></h1>
-            
+            <!-- download for offline use -->
+            <div class="download">
+                <p><a href="SimpleFOCGeneratorApp installer.zip" download> Download the Simple<span class="foc">FOC</span>GeneratorApp for offline use. <img src="download.svg" alt="link" style="height: 20px;"></a></p>
+            </div>
             <!-- motor selection -->
             <h2><a href="https://docs.simplefoc.com/motors_config" target="_blank" rel="noopener noreferrer"> What type of motor are you using? <img src="paperclip.svg" alt="link" class="paperclip"></a></h2>
             <div>
@@ -42,17 +45,19 @@
                         <input type="text" id="phaseresistance" onchange="changevarwithcomma(event);">
                         <label for="kvrating"> (K<sub>v</sub> rating): </label>
                         <input type="text" id="kvrating" onchange="changevarwithcomma(event);">
+                        <label for="inductance"> (Inductance): </label>
+                        <input type="text" id="inductance" onchange="changevarwithcomma(event);">
                     </div>
                     <div class="startup showonbldc showonstepper">
                         <br><br>
                         <label for="voltagelimit"> (Voltage limit): </label>
-                        <input type="text" id="voltagelimit" onchange="changevar(event);" oninput="voltagelimitempty();">
+                        <input type="text" id="voltagelimit" onchange="changevar(event);" oninput="emptycheck(this.id);">
                         <label for="velocitylimit"> (Velocity limit [rad/s] (default 20)): </label>
-                        <input type="text" id="velocitylimit" onchange="changevar(event);" oninput="velocitylimitempty();">
+                        <input type="text" id="velocitylimit" onchange="changevar(event);" oninput="emptycheck(this.id);">
                     </div>
                     <div class="startup showoncurrentsense">
                         <label for="currentlimit"> (Current limit (default 2A)): </label>
-                        <input type="text" id="currentlimit" onchange="changevar(event);" oninput="currentlimitempty();">
+                        <input type="text" id="currentlimit" onchange="changevar(event);" oninput="emptycheck(this.id);">
                     </div>
                 </div>
             </div>
@@ -218,9 +223,9 @@
                     <div class="startup showonbldc showonstepper">
                         <br>
                         <label for="psuvoltage"> (Power supply voltage (default 12V)): </label>
-                        <input type="text" id="psuvoltage" onchange="changevar(event);" oninput="psuvoltageempty()">
+                        <input type="text" id="psuvoltage" onchange="changevar(event);" oninput="emptycheck(this.id);">
                         <label for="drivervoltagelimit"> (Voltage limit): </label>
-                        <input type="text" id="drivervoltagelimit" onchange="changevar(event);" oninput="drivervoltagelimitempty()">
+                        <input type="text" id="drivervoltagelimit" onchange="changevar(event);" oninput="emptycheck(this.id);">
                     </div>
                 </div>
             </div>
@@ -274,10 +279,10 @@
                             <label for="b"> Channel B pin: </label>
                             <input type="text" id="b" onchange="changevarwithcomma(event);">
                             <label for="i"> (Index pin): </label>
-                            <input type="text" id="i" onchange="changevarwithcomma(event);" oninput="indexempty();">
+                            <input type="text" id="i" onchange="changevarwithcomma(event);" oninput="emptycheck(this.id);">
                         </div>
                         <div class="space">
-                            <label for="ppr"> Pulses per revolution (<math>ppr = cpr / 4</math>): </label>
+                            <label for="ppr"> Pulses per revolution (ppr = cpr / 4): </label>
                             <input type="text" id="ppr" onchange="changevarwithcomma(event);">
                         </div>
                     </div>
@@ -469,15 +474,15 @@
                 <div class="startup showonsensor">
                     <br>
                     <label for="pvel"> Velocity PID controller: K<sub>P</sub>: </label>
-                    <input type="text" id="pvel" onchange="changevar(event);" oninput="pvelempty();">
+                    <input type="text" id="pvel" onchange="changevar(event);" oninput="emptycheck(this.id);">
                     <label for="ivel"> K<sub>I</sub>: </label>
-                    <input type="text" id="ivel" onchange="changevar(event);" oninput="ivelempty();">
+                    <input type="text" id="ivel" onchange="changevar(event);" oninput="emptycheck(this.id);">
                     <label for="dvel"> K<sub>D</sub>: </label>
-                    <input type="text" id="dvel" onchange="changevar(event);" oninput="dvelempty();">
+                    <input type="text" id="dvel" onchange="changevar(event);" oninput="emptycheck(this.id);">
                     <div class="startup showonangle">
                         <br><br>
                         <label for="pangle"> Angle / position P controller P value: </label>
-                        <input type="text" id="pangle" onchange="changevar(event);" oninput="pangleempty();">
+                        <input type="text" id="pangle" onchange="changevar(event);" oninput="emptycheck(this.id);">
                     </div>
                 </div>
             </div>
@@ -533,11 +538,11 @@
                     <div class="startup showonbldc showonstepper"> #include &ltSimpleFOC.h&gt <br><br></div>
 
 
-                    <div class="startup showonbldc hideonstepper"> // BLDC motor instance BLDCMotor(polepairs, (R), (KV)) <br></div>
-                    <div class="startup showonbldc hideonstepper"> BLDCMotor motor = BLDCMotor(<span id="varpolepairs"></span><span id="varphaseresistance"></span><span id="varkvrating"></span>); <br><br></div>
+                    <div class="startup showonbldc hideonstepper"> // BLDC motor instance BLDCMotor(polepairs, (R), (KV), (L)) <br></div>
+                    <div class="startup showonbldc hideonstepper"> BLDCMotor motor = BLDCMotor(<span id="varpolepairs"></span><span id="varphaseresistance"></span><span id="varkvrating"></span><span id="varinductance"></span>); <br><br></div>
                     
-                    <div class="startup showonstepper hideonbldc"> // Stepper motor instance StepperMotor(polepairs, (R), (KV)) <br></div>
-                    <div class="startup showonstepper hideonbldc"> StepperMotor motor = StepperMotor(<span id="var2polepairs"></span><span id="var2phaseresistance"></span><span id="var2kvrating"></span>); <br><br></div>
+                    <div class="startup showonstepper hideonbldc"> // Stepper motor instance StepperMotor(polepairs, (R), (KV), (L)) <br></div>
+                    <div class="startup showonstepper hideonbldc"> StepperMotor motor = StepperMotor(<span id="var2polepairs"></span><span id="var2phaseresistance"></span><span id="var2kvrating"></span><span id="var2inductance"></span>); <br><br></div>
 
 
                     <div class="startup showon3pwm"> // BLDC driver instance BLDCDriver3PWM(phA, phB, phC, (en)) <br></div>
@@ -569,6 +574,7 @@
 
 
                     <div class="startup showonencoder"> // position / angle sensor instance Encoder(encA, encB , cpr, (index)) <br></div>
+                    <div class="startup showonencoder"> // these should be hardware interrupt pins, these are not the same for all microcontrollers https://docs.simplefoc.com/encoder#step-3-encoder-interrupt-setup <br></div>
                     <div class="startup showonencoder"> Encoder sensor = Encoder(<span id="vara"></span><span id="varb"></span><span id="varppr"></span><span id="vari"></span>); <br></div>
                     <div class="startup showonencoder"> void doA(){sensor.handleA();} <br></div>
                     <div class="startup showonencoder"> void doB(){sensor.handleB();} <br></div>
@@ -747,8 +753,7 @@
                     <div class="startup showonbldc showonstepper"> void loop() { <br></div>
                     
 
-                    <div class="startup showonsensor"> &nbsp;&nbsp;&nbsp;&nbsp;// main FOC algorithm function <br></div>
-                    <div class="startup showonsensor"> &nbsp;&nbsp;&nbsp;&nbsp;// the faster you run this function the better <br></div>
+                    <div class="startup showonsensor"> &nbsp;&nbsp;&nbsp;&nbsp;// main FOC algorithm function, the higher the execution frequency, the better, don't put delays in the loop <br></div>
                     <div class="startup showonsensor"> &nbsp;&nbsp;&nbsp;&nbsp;motor.loopFOC(); <br></div>
                     <br class="startup showonsensor">
 
@@ -770,8 +775,8 @@
         </div>
         <br>
         <a href="https://www.paypal.com/donate/?hosted_button_id=9RDTWTXFRXVKW" target="_blank" rel="noopener noreferrer"><img src="paypal.png" alt="paypal" style="height: 36px; border: 12px solid #fec453; border-radius: 8px; background-color: #fec453; margin-top: 10px; margin-right: 10px;"></a>
-        <a href="https://ko-fi.com/P5P0EOWUM" target="_blank" rel="noopener noreferrer"><img src="kofi.png" alt="kofi" style="height: 60px; margin-right: 10px;"></a>    
-        <a href="https://www.buymeacoffee.com/stijnsprojects" target="_blank" rel="noopener noreferrer"><img src="buymeacoffee.png" alt="buymeacoffee" style="height: 60px !important; width: 217px !important; margin-top: 10px;"></a>
+        <!-- <a href="https://ko-fi.com/" target="_blank" rel="noopener noreferrer"><img src="kofi.png" alt="kofi" style="height: 60px; margin-right: 10px;"></a> -->
+        <!-- <a href="https://www.buymeacoffee.com/" target="_blank" rel="noopener noreferrer"><img src="buymeacoffee.png" alt="buymeacoffee" style="height: 60px !important; width: 217px !important; margin-top: 10px;"></a> -->
         <br><br>
         <div>
             <form action="https://formspree.io/f/mqkjkarz" method="POST">

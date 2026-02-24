@@ -9,24 +9,25 @@
         <script src="scripts.js"></script>
         <title> SimpleFOCGenerator </title>
         <!-- favicon -->
-        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
         <link rel="manifest" href="site.webmanifest">
-        <link rel="mask-icon" href="safari-pinned-tab.svg" color="#44a8fa">
+        <link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#44a8fa">
         <meta name="msapplication-TileColor" content="#da532c">
         <meta name="theme-color" content="#ffffff">
     </head>
 
     <body>
         <div class="main">
-            <h1> <a href="https://github.com/stijnsprojects/simplefocgenerator" target="_blank" rel="noopener noreferrer">Simple<span class="foc">FOC</span>Generator</a> by <a href="https://www.youtube.com/c/StijnsProjects"  target="_blank" rel="noopener noreferrer"> Stijns Projects <img src="paperclip.svg" alt="link" style="height: 21px;"></a></h1>
+            <h1> <a href="https://github.com/stijnsprojects/simplefocgenerator" target="_blank" rel="noopener noreferrer">Simple<span class="foc">FOC</span>Generator</a> by <a href="https://www.youtube.com/c/StijnsProjects"  target="_blank" rel="noopener noreferrer"> Stijns Projects <img src="images/paperclip.svg" alt="link" style="height: 21px;"></a></h1>
             <!-- download for offline use -->
             <div class="download">
-                <p><a href="SimpleFOCGenerator.zip" download> Download the Simple<span class="foc">FOC</span>Generator for offline use. <img src="download.svg" alt="link" style="height: 20px;"></a></p>
+                <p><a href="SimpleFOCGenerator.zip" download> Download the Simple<span class="foc">FOC</span>Generator for offline use. <img src="images/download.svg" alt="link" style="height: 20px;"></a></p>
             </div>
+
             <!-- motor selection -->
-            <h2><a href="https://docs.simplefoc.com/motors_config" target="_blank" rel="noopener noreferrer"> What type of motor are you using? <img src="paperclip.svg" alt="link" class="paperclip"></a></h2>
+            <h2><a href="https://docs.simplefoc.com/motors_config" target="_blank" rel="noopener noreferrer"> What type of motor are you using? <img src="images/paperclip.svg" alt="link" class="paperclip"></a></h2>
             <div>
                 <!-- buttons -->
                 <div class="buttons">
@@ -34,10 +35,12 @@
                     <label for="bldc" title="Brushless DC motor"> BLDC </label>
                     <input type="radio" id="stepper" name="motor" onclick="motorcheck();">
                     <label for="stepper"> Stepper </label>
+                    <input type="radio" id="hybrid" name="motor" onclick="motorcheck();">
+                    <label for="hybrid"> Hybrid stepper </label>
                 </div>
                 <!-- settings -->
                 <div class="settings">
-                    <div class="startup showonbldc showonstepper">
+                    <div class="startup showonbldc showonstepper showonhybrid">
                         <br>
                         <label for="polepairs"> Pole pairs: </label>
                         <input type="text" id="polepairs" onchange="changevar(event);">
@@ -45,15 +48,40 @@
                         <input type="text" id="phaseresistance" onchange="changevarwithcomma(event);">
                         <label for="kvrating"> (K<sub>v</sub> rating): </label>
                         <input type="text" id="kvrating" onchange="changevarwithcomma(event);">
-                        <label for="inductance"> (Inductance): </label>
-                        <input type="text" id="inductance" onchange="changevarwithcomma(event);">
+                        <span class="showonbldc">
+                            <label for="inductance"> (Inductance): </label>
+                            <input type="text" id="inductance" onchange="changevarwithcomma(event);">
+                        </span>
+                        <span class="showonstepper showonhybrid">
+                            <label for="inductanced"> (Inductance L<sub>d</sub>): </label>
+                            <input type="text" id="inductanced" onchange="changevarwithcomma(event);">
+                            <label for="inductanceq"> (Inductance L<sub>q</sub>): </label>
+                            <input type="text" id="inductanceq" onchange="changevarwithcomma(event);">
+                        </span>
                     </div>
-                    <div class="startup showonbldc showonstepper">
+                    <div class="startup showonbldc showonstepper showonhybrid">
                         <br><br>
                         <label for="voltagelimit"> (Voltage limit): </label>
                         <input type="text" id="voltagelimit" onchange="changevar(event);" oninput="emptycheck(this.id);">
                         <label for="velocitylimit"> (Velocity limit [rad/s] (default 20)): </label>
                         <input type="text" id="velocitylimit" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                    </div>
+                    <div class="startup showonbldc showonstepper showonhybrid">
+                        <br><br>
+                        <label for="voltagealign"> (Voltage sensor align [V]): </label>
+                        <input type="text" id="voltagealign" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                        <label for="velocityindex"> (Velocity index search [rad/s]): </label>
+                        <input type="text" id="velocityindex" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                        <label for="sensoroffset"> (Sensor offset [rad]): </label>
+                        <input type="text" id="sensoroffset" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                        <label for="zeroelectricoffset"> (Zero electric offset [rad]): </label>
+                        <input type="text" id="zeroelectricoffset" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                        <label for="sensordirection"> (Sensor direction): </label>
+                        <select id="sensordirection" onchange="changevar(event); emptycheck(this.id);">
+                            <option value=""> Select </option>
+                            <option value="Direction::CW"> Direction::CW </option>
+                            <option value="Direction::CCW"> Direction::CCW </option>
+                        </select>
                     </div>
                     <div class="startup showoncurrentsense">
                         <label for="currentlimit"> (Current limit (default 2A)): </label>
@@ -63,12 +91,12 @@
             </div>
 
             <!-- driver -->
-            <h2><a href="https://docs.simplefoc.com/drivers_config" target="_blank" rel="noopener noreferrer"> What driver type do you want to use or what board are you using? <img src="paperclip.svg" alt="link" class="paperclip"></a></h2>
+            <h2><a href="https://docs.simplefoc.com/drivers_config" target="_blank" rel="noopener noreferrer"> What driver type do you want to use or what board are you using? <img src="images/paperclip.svg" alt="link" class="paperclip"></a></h2>
             <div>
                 <!-- buttons -->
                 <div class="buttons">
                     <div class="showonotherdriverboard">
-                        <div class="startup showonbldc hideonstepper">
+                        <div class="showonbldc showonhybrid hideonstepper">
                             <input type="radio" id="3pwm" name="driver" onclick="drivercheck();">
                             <label for="3pwm"> BLDC Driver 3 PWM </label>
                             <input type="radio" id="6pwm" name="driver" onclick="drivercheck();">
@@ -76,7 +104,7 @@
                             <br><br>
                         </div>
             
-                        <div class="startup showonstepper hideonbldc">
+                        <div class="showonstepper hideonbldc hideonhybrid">
                             <input type="radio" id="2pwm4" name="driver" onclick="drivercheck();">
                             <label for="2pwm4"> Stepper Driver 2 PWM 4 DIR (1 PWM and 2 DIR per phase) </label>
                             <input type="radio" id="2pwm2" name="driver" onclick="drivercheck();">
@@ -87,19 +115,18 @@
                         </div>
                     </div>
                     
-                    <div class="startup showonbldc showonstepper">
+                    <div class="showonbldc showonstepper showonhybrid">
                         <label> Board selector: </label>
                         <select id="boardselector" onchange="drivercheck();">
                             <option value="other"> Other </option>
-                            <option value="simplefocshield" class="showonbldc hideonstepper"> SimpleFOCSchield </option>
-                            <option value="simplefocmini" class="showonbldc hideonstepper"> SimpleFOCMini </option>
-                            <option value="bg431besc1" class="showonbldc hideonstepper"> B-G431B-ESC1 </option>
-                            <option value="l298n" class="hideonbldc showonstepper"> L298N </option>
+                            <option value="simplefocshield" class="showonbldc showonhybrid hideonstepper"> SimpleFOCSchield </option>
+                            <option value="simplefocmini" class="showonbldc showonhybrid hideonstepper"> SimpleFOCMini </option>
+                            <option value="bg431besc1" class="showonbldc showonhybrid hideonstepper"> B-G431B-ESC1 </option>
+                            <option value="l298n" class="hideonbldc showonstepper hideonhybrid"> L298N </option>
                         </select>
                     </div>
                 </div>
                 
-            
                 <!-- settings -->
                 <div class="settings">
                     <div class="startup showon3pwm showonsimplefocshield showonsimplefocmini">
@@ -115,10 +142,10 @@
                         <label for="enable3pwm"> (Enable pin): </label>
                         <input type="text" id="enable3pwm" onchange="changevarwithcomma(event);">
                         <br><br>
-                        <img src="img3pwm.png" alt="3pwm" style="height: 250px">
+                        <img src="images/img3pwm.png" alt="3pwm" style="height: 250px">
                     </div>
         
-                    <div class="startup showon6pwm">
+                    <div class="startup showon6pwm showonbg431besc1">
                         <br>
                         <div class="space">
                             <label for="pwmah"> PWM high pin phase A: </label>
@@ -141,7 +168,7 @@
                             <input type="text" id="enable6pwm" onchange="changevarwithcomma(event);">
                         </div>
                         <br><br>
-                        <img src="img6pwm.png" alt="6pwm" style="height: 250px">
+                        <img src="images/img6pwm.png" alt="6pwm" style="height: 250px">
                     </div>
         
                     <div class="startup showon2pwm4">
@@ -169,7 +196,7 @@
                             <input type="text" id="enable2pwm42" onchange="changevarwithcomma(event);">
                         </div>
                         <br><br>
-                        <img src="img2pwm4.png" alt="2pwm4" style="height: 300px">
+                        <img src="images/img2pwm4.png" alt="2pwm4" style="height: 300px">
                     </div>
         
                     <div class="startup showon2pwm2">
@@ -193,7 +220,7 @@
                             <input type="text" id="enable2pwm22" onchange="changevarwithcomma(event);">
                         </div>
                         <br><br>
-                        <img src="img2pwm2.png" alt="2pwm2" style="height: 300px">
+                        <img src="images/img2pwm2.png" alt="2pwm2" style="height: 300px">
                     </div>
         
                     <div class="startup showon4pwm showonl298n">
@@ -217,10 +244,10 @@
                             <input type="text" id="enable4pwm2" onchange="changevarwithcomma(event);">
                         </div>
                         <br><br>
-                        <img src="img4pwm.png" alt="4pwm" style="height: 250px">
+                        <img src="images/img4pwm.png" alt="4pwm" style="height: 250px">
                     </div>
 
-                    <div class="startup showonbldc showonstepper">
+                    <div class="startup showonbldc showonstepper showonhybrid">
                         <br>
                         <label for="psuvoltage"> (Power supply voltage (default 12V)): </label>
                         <input type="text" id="psuvoltage" onchange="changevar(event);" oninput="emptycheck(this.id);">
@@ -231,7 +258,7 @@
             </div>
 
             <!-- angle / position sensor -->
-            <h2><a href="https://docs.simplefoc.com/sensors" target="_blank" rel="noopener noreferrer"> What angle / position sensor are you using? <img src="paperclip.svg" alt="link" class="paperclip"></a></h2>
+            <h2><a href="https://docs.simplefoc.com/sensors" target="_blank" rel="noopener noreferrer"> What angle / position sensor are you using? <img src="images/paperclip.svg" alt="link" class="paperclip"></a></h2>
             <div>
                 <!-- buttons -->
                 <div class="buttons">
@@ -374,7 +401,7 @@
             </div>
 
             <!-- current sense -->
-            <h2><a href="https://docs.simplefoc.com/current_sense" target="_blank" rel="noopener noreferrer"> What type of current sensing are you using or what board are you using? <img src="paperclip.svg" alt="link" class="paperclip"></a></h2>
+            <h2><a href="https://docs.simplefoc.com/current_sense" target="_blank" rel="noopener noreferrer"> What type of current sensing are you using or what board are you using? <img src="images/paperclip.svg" alt="link" class="paperclip"></a></h2>
             <div>
                 <!-- buttons -->
                 <div class="buttons">
@@ -392,8 +419,8 @@
                         <label> Board selector: </label>
                         <select id="currentboardselector" onchange="currentsensecheck();">
                             <option value="other"> Other </option>
-                            <option value="simplefocshield" class="showonbldc hideonstepper"> SimpleFOCSchield </option>
-                            <option value="bg431besc1" class="showonbldc hideonstepper"> B-G431B-ESC1 </option>
+                            <option value="simplefocshield" class="showonbldc showonhybrid hideonstepper"> SimpleFOCSchield </option>
+                            <option value="bg431besc1" class="showonbldc showonhybrid hideonstepper"> B-G431B-ESC1 </option>
                         </select>
                     </div>
                 </div>
@@ -413,14 +440,17 @@
                             <input type="text" id="currentai" onchange="changevarwithcomma(event);">
                             <label for="currentbi"> ADC pin phase B: </label>
                             <input type="text" id="currentbi" onchange="changevarwithcomma(event);">
-                            <label for="currentci"> (ADC pin phase C): </label>
-                            <input type="text" id="currentci" onchange="changevarwithcomma(event);">
+                            <span class="showonbldc showonhybrid">
+                                <label for="currentci"> (ADC pin phase C): </label>
+                                <input type="text" id="currentci" onchange="changevarwithcomma(event);">
+                            </span>
                         </div>
                         <br><br>
-                        <img src="imginline.png" alt="inline" style="height: 325px">
+                        <img src="images/imginlinebldc.png" alt="inline" class="showonbldc showonhybrid" style="height: 325px">
+                        <img src="images/imginlinestepper.png" alt="inline" class="showonstepper" style="height: 325px">
                     </div>
                     
-                    <div class="startup showonlowside">
+                    <div class="startup showonlowside showoncurrentbg431besc1">
                         <br>
                         <div class="space">
                             <label for="shuntl"> Shunt resistace: </label>
@@ -433,11 +463,14 @@
                             <input type="text" id="currental" onchange="changevarwithcomma(event);">
                             <label for="currentbl"> ADC pin phase B: </label>
                             <input type="text" id="currentbl" onchange="changevarwithcomma(event);">
-                            <label for="currentcl"> (ADC pin phase C): </label>
-                            <input type="text" id="currentcl" onchange="changevarwithcomma(event);">
+                            <span class="showonbldc showonhybrid">
+                                <label for="currentcl"> (ADC pin phase C): </label>
+                                <input type="text" id="currentcl" onchange="changevarwithcomma(event);">
+                            </span>
                         </div>
                         <br><br>
-                        <img src="imglowside.png" alt="lowside" style="height: 425px">
+                        <img src="images/imglowsidebldc.png" alt="lowside" class="showonbldc showonhybrid" style="height: 425px">
+                        <img src="images/imglowsidestepper.png" alt="lowside" class="showonstepper" style="height: 425px">
                     </div>
 
                     <div class="startup showoncurrentsimplefocshield">
@@ -449,50 +482,93 @@
                             <input type="text" id="currentbs" onchange="changevarwithcomma(event);">
                         </div>
                         <br><br>
-                        <img src="imginline.png" alt="inline" style="height: 325px">
+                        <img src="images/imginlinebldc.png" alt="inline" class="showonbldc showonhybrid" style="height: 325px">
+                        <img src="images/imginlinestepper.png" alt="inline" class="showonstepper" style="height: 325px">
+                    </div>
+                    <div class="startup showoncurrentsense">
+                        <br>
+                        <input type="checkbox" id="skipalign" onclick="currentsenseoptionscheck();">
+                        <label for="skipalign"> Skip current sense alignment </label>
                     </div>
                 </div>
             </div>
 
             <!-- motion controller -->
-            <h2><a href="https://docs.simplefoc.com/motion_control" target="_blank" rel="noopener noreferrer"> What type of motion controller do you want to use? <img src="paperclip.svg" alt="link" class="paperclip"></a></h2>
+            <h2><a href="https://docs.simplefoc.com/motion_control" target="_blank" rel="noopener noreferrer"> What type of motion controller do you want to use? <img src="images/paperclip.svg" alt="link" class="paperclip"></a></h2>
             <div class="buttons">
                 <div>
-                    <input type="radio" id="torque" name="motioncontroller" class="showonsensor" onclick="motioncontrollercheck();">
-                    <label for="torque" class="showonsensor"> Torque (default) </label>
-                    <input type="radio" id="velocity" name="motioncontroller" class="showonsensor" onclick="motioncontrollercheck();">
-                    <label for="velocity" class="showonsensor"> Velocity </label>
-                    <input type="radio" id="angle" name="motioncontroller" class="showonsensor" onclick="motioncontrollercheck();">
-                    <label for="angle" class="showonsensor"> Angle / position </label>
-                    <input type="radio" id="velocityopenloop" name="motioncontroller" class="showonnones" onclick="motioncontrollercheck();">
-                    <label for="velocityopenloop" class="showonnones"> Velocity open-loop </label>
-                    <input type="radio" id="angleopenloop" name="motioncontroller" class="showonnones" onclick="motioncontrollercheck();">
-                    <label for="angleopenloop" class="showonnones"> Angle / position open-loop </label>
+                    <input type="radio" id="torquecontrol" name="motioncontroller" class="showonsensor" onclick="motioncontrollercheck();">
+                    <label for="torquecontrol" class="showonsensor"> Torque (default) </label>
+                    <input type="radio" id="velocitycontrol" name="motioncontroller" class="showonsensor" onclick="motioncontrollercheck();">
+                    <label for="velocitycontrol" class="showonsensor"> Velocity </label>
+                    <input type="radio" id="anglecontrol" name="motioncontroller" class="showonsensor" onclick="motioncontrollercheck();">
+                    <label for="anglecontrol" class="showonsensor"> Angle / position </label>
+                    <input type="radio" id="anglenocascadecontrol" name="motioncontroller" class="showonsensor" onclick="motioncontrollercheck();">
+                    <label for="anglenocascadecontrol" class="showonsensor"> Angle / position (no cascade) </label>
+                    <input type="radio" id="customcontrol" name="motioncontroller" class="showonsensor" onclick="motioncontrollercheck();">
+                    <label for="customcontrol" class="showonsensor"> Custom (advanced) </label>
+                    <input type="radio" id="velocityopenloopcontrol" name="motioncontroller" class="showonnones" onclick="motioncontrollercheck();">
+                    <label for="velocityopenloopcontrol" class="showonnones"> Velocity open-loop </label>
+                    <input type="radio" id="angleopenloopcontrol" name="motioncontroller" class="showonnones" onclick="motioncontrollercheck();">
+                    <label for="angleopenloopcontrol" class="showonnones"> Angle / position open-loop </label>
                 </div>
             </div>
             <div class="settings">
                 <div class="startup showonsensor">
-                    <br>
-                    <label for="pvel"> Velocity PID controller: K<sub>P</sub>: </label>
-                    <input type="text" id="pvel" onchange="changevar(event);" oninput="emptycheck(this.id);">
-                    <label for="ivel"> K<sub>I</sub>: </label>
-                    <input type="text" id="ivel" onchange="changevar(event);" oninput="emptycheck(this.id);">
-                    <label for="dvel"> K<sub>D</sub>: </label>
-                    <input type="text" id="dvel" onchange="changevar(event);" oninput="emptycheck(this.id);">
-                    <div class="startup showonangle">
-                        <br><br>
+                    <div class="startup hideontorquecontrol showonvelocitycontrol showonanglecontrol showonanglenocascadecontrol showoncustomcontrol">
+                        <br>
+                        <label for="pvel"> Velocity PID controller: K<sub>P</sub>: </label>
+                        <input type="text" id="pvel" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                        <label for="ivel"> K<sub>I</sub>: </label>
+                        <input type="text" id="ivel" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                        <label for="dvel"> K<sub>D</sub>: </label>
+                        <input type="text" id="dvel" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                    </div>
+                    <div class="startup hideontorquecontrol hideonvelocitycontrol showonanglecontrol showonanglenocascadecontrol showoncustomcontrol">
+                        <br>
                         <label for="pangle"> Angle / position P controller P value: </label>
                         <input type="text" id="pangle" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                    </div>
+                    <div class="startup hideontorquecontrol showonvelocitycontrol showonanglecontrol showonanglenocascadecontrol showoncustomcontrol">
+                        <br><br>
+                        <label for="velfilter"> Velocity low-pass filter Tf: </label>
+                        <input type="text" id="velfilter" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                        <label for="veloutputramp"> PID output ramp: </label>
+                        <input type="text" id="veloutputramp" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                        <label for="vellimit"> PID limit: </label>
+                        <input type="text" id="vellimit" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                        <label for="velsampling"> PID sampling time: </label>
+                        <input type="text" id="velsampling" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                    </div>
+                    <div class="startup hideontorquecontrol showonvelocitycontrol showonanglecontrol showonanglenocascadecontrol showoncustomcontrol">
+                        <br><br>
+                        <label for="feedforwardvelocity"> Velocity feed-forward: </label>
+                        <input type="text" id="feedforwardvelocity" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                        <label for="feedforwardcurrentq"> Current feed-forward q: </label>
+                        <input type="text" id="feedforwardcurrentq" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                        <label for="feedforwardcurrentd"> Current feed-forward d: </label>
+                        <input type="text" id="feedforwardcurrentd" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                        <label for="feedforwardvoltageq"> Voltage feed-forward q: </label>
+                        <input type="text" id="feedforwardvoltageq" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                        <label for="feedforwardvoltaged"> Voltage feed-forward d: </label>
+                        <input type="text" id="feedforwardvoltaged" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                    </div>
+                    <div class="startup showonmotioncontrollers">
+                        <br><br>
+                        <label for="motiondownsampling"> Motion downsampling: </label>
+                        <input type="text" id="motiondownsampling" onchange="changevar(event);" oninput="emptycheck(this.id);">
                     </div>
                 </div>
             </div>
             
 
             <!-- torque controller -->
-            <h2><a href="https://docs.simplefoc.com/torque_control" target="_blank" rel="noopener noreferrer"> What type of torque controller do you want to use? <img src="paperclip.svg" alt="link" class="paperclip"></a></h2>
+            <h2><a href="https://docs.simplefoc.com/torque_control" target="_blank" rel="noopener noreferrer"> What type of torque controller do you want to use? <img src="images/paperclip.svg" alt="link" class="paperclip"></a></h2>
             <div class="buttons">
                 <input type="radio" id="voltage" name="torquecontroller" onclick="torquecontrollercheck();">
                 <label for="voltage"> Voltage (default) </label>
+                <input type="radio" id="estimatedcurrent" name="torquecontroller" onclick="torquecontrollercheck();">
+                <label for="estimatedcurrent"> Estimated current </label>
                 <input class="showoncurrentsense" type="radio" id="dccurrent" name="torquecontroller" onclick="torquecontrollercheck();">
                 <label class="showoncurrentsense" for="dccurrent"> DC current </label>
                 <input class="showoncurrentsense" type="radio" id="foccurrent" name="torquecontroller" onclick="torquecontrollercheck();">
@@ -500,21 +576,21 @@
             </div>
 
             <!-- foc modulation -->
-            <div class="hideonstepper showonbldc">
+            <div class="showonbldc showonstepper showonhybrid">
                 <br class="startup showonsensor">
-                <a href="https://docs.simplefoc.com/bldcmotor#step-51-pwm-modulation-type" target="_blank" rel="noopener noreferrer"> <h2 class="showonsensor"> What type of FOC modulation do you want to use? <img src="paperclip.svg" alt="link" class="paperclip"></h2></a>
+                <a href="https://docs.simplefoc.com/bldcmotor#step-51-pwm-modulation-type" target="_blank" rel="noopener noreferrer"> <h2 class="showonsensor"> What type of FOC modulation do you want to use? <img src="images/paperclip.svg" alt="link" class="paperclip"></h2></a>
                 <div class="showonsensor buttons">
                     <br class="startup showonsensor">
                     <br class="startup showonsensor">
                     <div>
-                        <input type="radio" id="sinepwm" name="focmodulation" onclick="focmodulationcheck();">
-                        <label for="sinepwm"> Sine PWM (default) </label>
-                        <input type="radio" id="trapezoid120" name="focmodulation" onclick="focmodulationcheck();">
-                        <label for="trapezoid120"> Trapezoid 120 </label>
-                        <input type="radio" id="trapezoid150" name="focmodulation" onclick="focmodulationcheck();">
-                        <label for="trapezoid150"> Trapezoid 150 </label>
-                        <input type="radio" id="spacevectorpwm" name="focmodulation" onclick="focmodulationcheck();">
-                        <label for="spacevectorpwm"> Space vector modulation (SVM) </label>
+                        <input class="showonbldc showonstepper showonhybrid" type="radio" id="sinepwm" name="focmodulation" onclick="focmodulationcheck();">
+                        <label class="showonbldc showonstepper showonhybrid" for="sinepwm"> Sine PWM (default) </label>
+                        <input class="showonbldc" type="radio" id="trapezoid120" name="focmodulation" onclick="focmodulationcheck();">
+                        <label class="showonbldc" for="trapezoid120"> Trapezoid 120 </label>
+                        <input class="showonbldc" type="radio" id="trapezoid150" name="focmodulation" onclick="focmodulationcheck();">
+                        <label class="showonbldc" for="trapezoid150"> Trapezoid 150 </label>
+                        <input class="showonbldc showonhybrid" type="radio" id="spacevectorpwm" name="focmodulation" onclick="focmodulationcheck();">
+                        <label class="showonbldc showonhybrid" for="spacevectorpwm"> Space vector modulation (SVM) </label>
                     </div>
                     
                 </div>
@@ -529,21 +605,43 @@
                 <input type="checkbox" id="monitoring" onclick="monitoringcheck();">
                 <label for="monitoring"> Monitoring </label>
             </div>
+            <div class="settings">
+                <div class="startup showonmonitoring">
+                    <br>
+                    <label for="monitorvariables"> Monitor variables (e.g. _MON_TARGET | _MON_VEL): </label>
+                    <input type="text" id="monitorvariables" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                    <label for="monitordownsample"> Monitor downsample: </label>
+                    <input type="text" id="monitordownsample" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                    <label for="monitordecimals"> Monitor decimals: </label>
+                    <input type="text" id="monitordecimals" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                    <br><br>
+                    <label for="monitorseparator"> Monitor separator (e.g. '\t' or ' '): </label>
+                    <input type="text" id="monitorseparator" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                    <label for="monitorstartchar"> Monitor start char (e.g. '\0' or '$'): </label>
+                    <input type="text" id="monitorstartchar" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                    <label for="monitorendchar"> Monitor end char (e.g. '\0' or ';'): </label>
+                    <input type="text" id="monitorendchar" onchange="changevar(event);" oninput="emptycheck(this.id);">
+                    <br><br>
+                    <input type="checkbox" id="disabledebug" onclick="monitoringoptionscheck();">
+                    <label for="disabledebug"> Disable debug output </label>
+                </div>
+            </div>
 
             <h2> Code </h2>
         </div>
         <div>
             <div id="code">
                 <code>
-                    <div class="startup showonbldc showonstepper"> #include &ltSimpleFOC.h&gt <br><br></div>
+                    <div class="startup showonbldc showonstepper showonhybrid"> #include &ltSimpleFOC.h&gt <br><br></div>
 
-
-                    <div class="startup showonbldc hideonstepper"> // BLDC motor instance BLDCMotor(polepairs, (R), (KV), (L)) <br></div>
-                    <div class="startup showonbldc hideonstepper"> BLDCMotor motor = BLDCMotor(<span id="varpolepairs"></span><span id="varphaseresistance"></span><span id="varkvrating"></span><span id="varinductance"></span>); <br><br></div>
+                    <div class="startup showonbldc hideonstepper hideonhybrid"> // BLDC motor instance BLDCMotor(polepairs, (R), (KV), (L)) <br></div>
+                    <div class="startup showonbldc hideonstepper hideonhybrid"> BLDCMotor motor = BLDCMotor(<span id="varpolepairs"></span><span id="varphaseresistance"></span><span id="varkvrating"></span><span id="varinductance"></span>); <br><br></div>
                     
-                    <div class="startup showonstepper hideonbldc"> // Stepper motor instance StepperMotor(polepairs, (R), (KV), (L)) <br></div>
-                    <div class="startup showonstepper hideonbldc"> StepperMotor motor = StepperMotor(<span id="var2polepairs"></span><span id="var2phaseresistance"></span><span id="var2kvrating"></span><span id="var2inductance"></span>); <br><br></div>
+                    <div class="startup showonstepper hideonbldc hideonhybrid"> // Stepper motor instance StepperMotor(polepairs, (R), (KV), (Ld), (Lq)) <br></div>
+                    <div class="startup showonstepper hideonbldc hideonhybrid"> StepperMotor motor = StepperMotor(<span id="var2polepairs"></span><span id="var2phaseresistance"></span><span id="var2kvrating"></span><span id="var2inductanced"></span><span id="var2inductanceq"></span>); <br><br></div>
 
+                    <div class="startup showonhybrid hideonbldc hideonstepper"> // Hybrid stepper motor instance HybridStepperMotor(polepairs, (R), (KV), (Ld), (Lq)) <br></div>
+                    <div class="startup showonhybrid hideonbldc hideonstepper"> HybridStepperMotor motor = HybridStepperMotor(<span id="var2polepairs"></span><span id="var2phaseresistance"></span><span id="var2kvrating"></span><span id="var2inductanced"></span><span id="var2inductanceq"></span>); <br><br></div>
 
                     <div class="startup showon3pwm"> // BLDC driver instance BLDCDriver3PWM(phA, phB, phC, (en)) <br></div>
                     <div class="startup showon3pwm"> BLDCDriver3PWM driver = BLDCDriver3PWM(<span id="varpwma"></span><span id="varpwmb"></span><span id="varpwmc"></span><span id="varenable3pwm"></span>); <br><br></div>
@@ -571,7 +669,6 @@
                     
                     <div class="startup showonl298n"> // Stepper driver instance StepperDriver4PWM(ph1A, ph1B, ph2A, ph2B, (en1), (en2)) <br></div>
                     <div class="startup showonl298n"> StepperDriver4PWM driver = StepperDriver4PWM(<span id="var2pwm1a"></span><span id="var2pwm1b"></span><span id="var2pwm2a"></span><span id="var2pwm2b"></span><span id="var2enable4pwm1"></span><span id="var2enable4pwm2"></span>); <br><br></div>
-
 
                     <div class="startup showonencoder"> // position / angle sensor instance Encoder(encA, encB , cpr, (index)) <br></div>
                     <div class="startup showonencoder"> // these should be hardware interrupt pins, these are not the same for all microcontrollers https://docs.simplefoc.com/encoder#step-3-encoder-interrupt-setup <br></div>
@@ -627,13 +724,17 @@
                     <div class="startup showoncurrentbg431besc1"> // inline current sense instance InlineCurrentSense(R, gain, phA, phB, phC) <br></div>
                     <div class="startup showoncurrentbg431besc1"> InlineCurrentSense currentsense  = InlineCurrentSense(0.003, -64.0/7.0, A_OP1_OUT, A_OP2_OUT, A_OP3_OUT); <br><br></div>
 
+                    <div class="startup showoncustom"> // custom motion control function (advanced) <br></div>
+                    <div class="startup showoncustom"> float customMotionControl(FOCMotor&#38; motor) { <br></div>
+                    <div class="startup showoncustom"> &nbsp;&nbsp;&nbsp;&nbsp;// return target torque (A or V depending on torque control) <br></div>
+                    <div class="startup showoncustom"> &nbsp;&nbsp;&nbsp;&nbsp;return 0; <br></div>
+                    <div class="startup showoncustom"> } <br><br></div>
 
                     <div class="startup showoncommander"> // commander instance <br></div>
                     <div class="startup showoncommander"> Commander command = Commander(Serial); <br></div>
                     <div class="startup showoncommander"> void doTarget(char* cmd){command.motion(&motor, cmd);} <br><br></div>
 
-
-                    <div class="startup showonbldc showonstepper"> void setup() { <br></div>
+                    <div class="startup showonbldc showonstepper showonhybrid"> void setup() { <br></div>
 
                     <div class="startup showonmonitoring showoncommander"> &nbsp;&nbsp;&nbsp;&nbsp;// start serial <br></div>
                     <div class="startup showonmonitoring showoncommander"> &nbsp;&nbsp;&nbsp;&nbsp;Serial.begin(115200); <br><br></div>
@@ -654,19 +755,21 @@
                     <div class="startup showonsensor"> &nbsp;&nbsp;&nbsp;&nbsp;// link sensor to motor <br></div>
                     <div class="startup showonsensor"> &nbsp;&nbsp;&nbsp;&nbsp;motor.linkSensor(&#38;sensor); <br><br></div>
 
-
                     <div class="startup showonpsuvoltage"> &nbsp;&nbsp;&nbsp;&nbsp;// set power supply voltage <br></div>
                     <div class="startup showonpsuvoltage"> &nbsp;&nbsp;&nbsp;&nbsp;driver.voltage_power_supply = <span id="varpsuvoltage"></span>; <br></div>
                     <div class="startup showondrivervoltagelimit"> &nbsp;&nbsp;&nbsp;&nbsp;// set driver voltage limit, this phase voltage <br></div>
                     <div class="startup showondrivervoltagelimit"> &nbsp;&nbsp;&nbsp;&nbsp;driver.voltage_limit = <span id="vardrivervoltagelimit"></span>; <br></div>
-                    <div class="startup showonbldc showonstepper"> &nbsp;&nbsp;&nbsp;&nbsp;// initialize driver <br></div>
-                    <div class="startup showonbldc showonstepper"> &nbsp;&nbsp;&nbsp;&nbsp;driver.init(); <br></div>
-                    <div class="startup showonbldc showonstepper"> &nbsp;&nbsp;&nbsp;&nbsp;// link driver to motor <br></div>
-                    <div class="startup showonbldc showonstepper"> &nbsp;&nbsp;&nbsp;&nbsp;motor.linkDriver(&#38;driver); <br></div>
+                    <div class="startup showonbldc showonstepper showonhybrid"> &nbsp;&nbsp;&nbsp;&nbsp;// initialize driver <br></div>
+                    <div class="startup showonbldc showonstepper showonhybrid"> &nbsp;&nbsp;&nbsp;&nbsp;driver.init(); <br></div>
+                    <div class="startup showonbldc showonstepper showonhybrid"> &nbsp;&nbsp;&nbsp;&nbsp;// link driver to motor <br></div>
+                    <div class="startup showonbldc showonstepper showonhybrid"> &nbsp;&nbsp;&nbsp;&nbsp;motor.linkDriver(&#38;driver); <br></div>
+                    
                     <br class="startup showonnonec">
                     <div class="startup showoncurrentsense"> &nbsp;&nbsp;&nbsp;&nbsp;// link driver to current sense <br></div>
                     <div class="startup showoncurrentsense"> &nbsp;&nbsp;&nbsp;&nbsp;currentsense.linkDriver(&driver); <br><br></div>
 
+                    <div class="startup showoncustom"> &nbsp;&nbsp;&nbsp;&nbsp;// link custom motion control function <br></div>
+                    <div class="startup showoncustom"> &nbsp;&nbsp;&nbsp;&nbsp;motor.linkCustomMotionControl(customMotionControl); <br><br></div>
 
                     <div class="startup showontorque"> &nbsp;&nbsp;&nbsp;&nbsp;// set motion control type to torque (default)<br></div>
                     <div class="startup showontorque"> &nbsp;&nbsp;&nbsp;&nbsp;motor.controller = MotionControlType::torque; <br><br></div>
@@ -677,22 +780,32 @@
                     <div class="startup showonangle"> &nbsp;&nbsp;&nbsp;&nbsp;// set motion control type to angle / position <br></div>
                     <div class="startup showonangle"> &nbsp;&nbsp;&nbsp;&nbsp;motor.controller = MotionControlType::angle; <br><br></div>
 
+                    <div class="startup showonanglenocascade"> &nbsp;&nbsp;&nbsp;&nbsp;// set motion control type to angle / position (no cascade) <br></div>
+                    <div class="startup showonanglenocascade"> &nbsp;&nbsp;&nbsp;&nbsp;motor.controller = MotionControlType::angle_nocascade; <br><br></div>
+
+                    <div class="startup showoncustom"> &nbsp;&nbsp;&nbsp;&nbsp;// set motion control type to custom <br></div>
+                    <div class="startup showoncustom"> &nbsp;&nbsp;&nbsp;&nbsp;motor.controller = MotionControlType::custom; <br><br></div>
+
                     <div class="startup showonvelocityopenloop"> &nbsp;&nbsp;&nbsp;&nbsp;// set motion control type to velocity openloop<br></div>
                     <div class="startup showonvelocityopenloop"> &nbsp;&nbsp;&nbsp;&nbsp;motor.controller = MotionControlType::velocity_openloop; <br><br></div>
 
                     <div class="startup showonangleopenloop"> &nbsp;&nbsp;&nbsp;&nbsp;// set motion control type to angle / postion openloop <br></div>
                     <div class="startup showonangleopenloop"> &nbsp;&nbsp;&nbsp;&nbsp;motor.controller = MotionControlType::angle_openloop; <br><br></div>
 
+                    <div class="startup showonmotiondownsampling"> &nbsp;&nbsp;&nbsp;&nbsp;// set motion control loop downsampling <br></div>
+                    <div class="startup showonmotiondownsampling"> &nbsp;&nbsp;&nbsp;&nbsp;motor.motion_downsampling = <span id="varmotiondownsampling"></span>; <br><br></div>
 
                     <div class="startup showonvoltage"> &nbsp;&nbsp;&nbsp;&nbsp;// set torque control type to voltage (default) <br></div>
                     <div class="startup showonvoltage"> &nbsp;&nbsp;&nbsp;&nbsp;motor.torque_controller = TorqueControlType::voltage; <br><br></div>
+
+                    <div class="startup showonestimatedcurrent"> &nbsp;&nbsp;&nbsp;&nbsp;// set torque control type to estimated current <br></div>
+                    <div class="startup showonestimatedcurrent"> &nbsp;&nbsp;&nbsp;&nbsp;motor.torque_controller = TorqueControlType::estimated_current; <br><br></div>
 
                     <div class="startup showondccurrent"> &nbsp;&nbsp;&nbsp;&nbsp;// set torque control type to DC current <br></div>
                     <div class="startup showondccurrent"> &nbsp;&nbsp;&nbsp;&nbsp;motor.torque_controller = TorqueControlType::dc_current; <br><br></div>
                     
                     <div class="startup showonfoccurrent"> &nbsp;&nbsp;&nbsp;&nbsp;// set torque control type to FOC current <br></div>
                     <div class="startup showonfoccurrent"> &nbsp;&nbsp;&nbsp;&nbsp;motor.torque_controller = TorqueControlType::foc_current; <br><br></div>
-
 
                     <div class="startup showonsinepwm"> &nbsp;&nbsp;&nbsp;&nbsp;// set FOC modulation type to sinusoidal <br></div>
                     <div class="startup showonsinepwm"> &nbsp;&nbsp;&nbsp;&nbsp;motor.foc_modulation = FOCModulationType::SinePWM; <br><br></div>
@@ -706,11 +819,21 @@
                     <div class="startup showonspacevectorpwm"> &nbsp;&nbsp;&nbsp;&nbsp;// set FOC modulation type to space vector modulation <br></div>
                     <div class="startup showonspacevectorpwm"> &nbsp;&nbsp;&nbsp;&nbsp;motor.foc_modulation = FOCModulationType::SpaceVectorPWM; <br><br></div>
 
-
                     <div class="startup showonpvel"> &nbsp;&nbsp;&nbsp;&nbsp;// velocity PID controller <br></div>
                     <div class="startup showonpvel"> &nbsp;&nbsp;&nbsp;&nbsp;motor.PID_velocity.P = <span id="varpvel"></span>; <br></div>
                     <div class="startup showonivel"> &nbsp;&nbsp;&nbsp;&nbsp;motor.PID_velocity.I = <span id="varivel"></span>; <br></div>
                     <div class="startup showondvel"> &nbsp;&nbsp;&nbsp;&nbsp;motor.PID_velocity.D = <span id="vardvel"></span>; <br></div>
+                    <div class="startup showonvelfilter"> &nbsp;&nbsp;&nbsp;&nbsp;// velocity filter and PID advanced parameters <br></div>
+                    <div class="startup showonvelfilter"> &nbsp;&nbsp;&nbsp;&nbsp;motor.LPF_velocity.Tf = <span id="varvelfilter"></span>; <br></div>
+                    <div class="startup showonveloutputramp"> &nbsp;&nbsp;&nbsp;&nbsp;motor.PID_velocity.output_ramp = <span id="varveloutputramp"></span>; <br></div>
+                    <div class="startup showonvellimit"> &nbsp;&nbsp;&nbsp;&nbsp;motor.PID_velocity.limit = <span id="varvellimit"></span>; <br></div>
+                    <div class="startup showonvelsampling"> &nbsp;&nbsp;&nbsp;&nbsp;motor.PID_velocity.sampling_time = <span id="varvelsampling"></span>; <br></div>
+                    <div class="startup showonfeedforwardvelocity"> &nbsp;&nbsp;&nbsp;&nbsp;// feed-forward terms <br></div>
+                    <div class="startup showonfeedforwardvelocity"> &nbsp;&nbsp;&nbsp;&nbsp;motor.feed_forward_velocity = <span id="varfeedforwardvelocity"></span>; <br></div>
+                    <div class="startup showonfeedforwardcurrentq"> &nbsp;&nbsp;&nbsp;&nbsp;motor.feed_forward_current.q = <span id="varfeedforwardcurrentq"></span>; <br></div>
+                    <div class="startup showonfeedforwardcurrentd"> &nbsp;&nbsp;&nbsp;&nbsp;motor.feed_forward_current.d = <span id="varfeedforwardcurrentd"></span>; <br></div>
+                    <div class="startup showonfeedforwardvoltageq"> &nbsp;&nbsp;&nbsp;&nbsp;motor.feed_forward_voltage.q = <span id="varfeedforwardvoltageq"></span>; <br></div>
+                    <div class="startup showonfeedforwardvoltaged"> &nbsp;&nbsp;&nbsp;&nbsp;motor.feed_forward_voltage.d = <span id="varfeedforwardvoltaged"></span>; <br></div>
                     <div class="startup showonpangle"> &nbsp;&nbsp;&nbsp;&nbsp;// angle / position P controller <br></div>
                     <div class="startup showonpangle"> &nbsp;&nbsp;&nbsp;&nbsp;motor.P_angle.P = <span id="varpangle"></span>; <br></div>
 
@@ -722,44 +845,53 @@
                     <div class="startup showoncurrentlimit"> &nbsp;&nbsp;&nbsp;&nbsp;motor.current_limit = <span id="varcurrentlimit"></span>; <br></div>
                     <br class="startup showonvoltagelimit showonvelocitylimit showoncurrentlimit">
 
+                    <div class="startup showonvoltagealign"> &nbsp;&nbsp;&nbsp;&nbsp;// motor alignment and sensor parameters <br></div>
+                    <div class="startup showonvoltagealign"> &nbsp;&nbsp;&nbsp;&nbsp;motor.voltage_sensor_align = <span id="varvoltagealign"></span>; <br></div>
+                    <div class="startup showonvelocityindex"> &nbsp;&nbsp;&nbsp;&nbsp;motor.velocity_index_search = <span id="varvelocityindex"></span>; <br></div>
+                    <div class="startup showonsensoroffset"> &nbsp;&nbsp;&nbsp;&nbsp;motor.sensor_offset = <span id="varsensoroffset"></span>; <br></div>
+                    <div class="startup showonzeroelectricoffset"> &nbsp;&nbsp;&nbsp;&nbsp;motor.zero_electric_offset = <span id="varzeroelectricoffset"></span>; <br></div>
+                    <div class="startup showonsensordirection"> &nbsp;&nbsp;&nbsp;&nbsp;motor.sensor_direction = <span id="varsensordirection"></span>; <br></div>
+                    <br class="startup showonvoltagealign showonvelocityindex showonsensoroffset showonzeroelectricoffset showonsensordirection">
+
                     <div class="startup showonmonitoring"> &nbsp;&nbsp;&nbsp;&nbsp;// use monitoring <br></div>
                     <div class="startup showonmonitoring"> &nbsp;&nbsp;&nbsp;&nbsp;motor.useMonitoring(Serial); <br></div>
+                    <div class="startup showonmonitorvariables"> &nbsp;&nbsp;&nbsp;&nbsp;motor.monitor_variables = <span id="varmonitorvariables"></span>; <br></div>
+                    <div class="startup showonmonitordownsample"> &nbsp;&nbsp;&nbsp;&nbsp;motor.monitor_downsample = <span id="varmonitordownsample"></span>; <br></div>
+                    <div class="startup showonmonitordecimals"> &nbsp;&nbsp;&nbsp;&nbsp;motor.monitor_decimals = <span id="varmonitordecimals"></span>; <br></div>
+                    <div class="startup showonmonitorseparator"> &nbsp;&nbsp;&nbsp;&nbsp;motor.monitor_separator = <span id="varmonitorseparator"></span>; <br></div>
+                    <div class="startup showonmonitorstartchar"> &nbsp;&nbsp;&nbsp;&nbsp;motor.monitor_start_char = <span id="varmonitorstartchar"></span>; <br></div>
+                    <div class="startup showonmonitorendchar"> &nbsp;&nbsp;&nbsp;&nbsp;motor.monitor_end_char = <span id="varmonitorendchar"></span>; <br></div>
+                    <div class="startup showondisabledebug"> &nbsp;&nbsp;&nbsp;&nbsp;SimpleFOCDebug::enable(NULL); <br></div>
                     <br class="startup showonmonitoring">
 
-                    <div class="startup showonbldc showonstepper"> &nbsp;&nbsp;&nbsp;&nbsp;// initialize motor <br></div>
-                    <div class="startup showonbldc showonstepper"> &nbsp;&nbsp;&nbsp;&nbsp;motor.init(); <br><br></div>
-
+                    <div class="startup showonbldc showonstepper showonhybrid"> &nbsp;&nbsp;&nbsp;&nbsp;// initialize motor <br></div>
+                    <div class="startup showonbldc showonstepper showonhybrid"> &nbsp;&nbsp;&nbsp;&nbsp;motor.init(); <br><br></div>
 
                     <div class="startup showoncurrentsense"> &nbsp;&nbsp;&nbsp;&nbsp;// initialize current sensing and link it to the motor <br></div>
                     <div class="startup showoncurrentsense"> &nbsp;&nbsp;&nbsp;&nbsp;// https://docs.simplefoc.com/inline_current_sense#where-to-place-the-current_sense-configuration-in-your-foc-code <br></div>
+                    <div class="startup showonskipalign"> &nbsp;&nbsp;&nbsp;&nbsp;currentsense.skip_align = true; <br></div>
                     <div class="startup showoncurrentsense"> &nbsp;&nbsp;&nbsp;&nbsp;currentsense.init(); <br></div>
                     <div class="startup showoncurrentsense"> &nbsp;&nbsp;&nbsp;&nbsp;motor.linkCurrentSense(&#38;currentsense); <br><br></div>
-
 
                     <div class="startup showonsensor"> &nbsp;&nbsp;&nbsp;&nbsp;// align sensor and start FOC  <br></div>
                     <div class="startup showonsensor"> &nbsp;&nbsp;&nbsp;&nbsp;motor.initFOC(); <br><br></div>
                     
-
                     <div class="startup showoncommander"> &nbsp;&nbsp;&nbsp;&nbsp;// add command to commander <br></div>
                     <div class="startup showoncommander"> &nbsp;&nbsp;&nbsp;&nbsp;command.add('M', doTarget, "target"); <br><br></div>
 
+                    <div class="startup showonbldc showonstepper showonhybrid"> &nbsp;&nbsp;&nbsp;&nbsp;_delay(1000); <br></div>
 
-                    <div class="startup showonbldc showonstepper"> &nbsp;&nbsp;&nbsp;&nbsp;_delay(1000); <br></div>
+                    <div class="startup showonbldc showonstepper showonhybrid"> } <br><br></div>
 
-
-                    <div class="startup showonbldc showonstepper"> } <br><br></div>
-
-
-                    <div class="startup showonbldc showonstepper"> void loop() { <br></div>
+                    <div class="startup showonbldc showonstepper showonhybrid"> void loop() { <br></div>
                     
-
                     <div class="startup showonsensor"> &nbsp;&nbsp;&nbsp;&nbsp;// main FOC algorithm function, the higher the execution frequency, the better, don't put delays in the loop <br></div>
                     <div class="startup showonsensor"> &nbsp;&nbsp;&nbsp;&nbsp;motor.loopFOC(); <br></div>
                     <br class="startup showonsensor">
 
-                    <div class="startup showonbldc showonstepper"> &nbsp;&nbsp;&nbsp;&nbsp;// this function can be run at much lower frequency than loopFOC() <br></div>
-                    <div class="startup showonbldc showonstepper"> &nbsp;&nbsp;&nbsp;&nbsp;motor.move(); <br></div>
-                    <br class="startup showonbldc showonstepper">
+                    <div class="startup showonbldc showonstepper showonhybrid"> &nbsp;&nbsp;&nbsp;&nbsp;// this function can be run at much lower frequency than loopFOC() <br></div>
+                    <div class="startup showonbldc showonstepper showonhybrid"> &nbsp;&nbsp;&nbsp;&nbsp;motor.move(); <br></div>
+                    <br class="startup showonbldc showonstepper showonhybrid">
                     
                     <div class="startup showonmonitoring"> &nbsp;&nbsp;&nbsp;&nbsp;// significantly slowing the execution down <br></div>
                     <div class="startup showonmonitoring"> &nbsp;&nbsp;&nbsp;&nbsp;motor.monitor(); <br></div>
@@ -768,16 +900,12 @@
                     <div class="startup showoncommander"> &nbsp;&nbsp;&nbsp;&nbsp;// user communication <br></div>
                     <div class="startup showoncommander"> &nbsp;&nbsp;&nbsp;&nbsp;command.run(); <br></div>
 
-                    <div class="startup showonbldc showonstepper"> } <br></div>
+                    <div class="startup showonbldc showonstepper showonhybrid"> } <br></div>
                 </code>
             </div>
             <button style="font-family: 'Roboto', sans-serif; font-size: 16px; margin-top: 8px;" onclick="copycode()"> Copy code </button>
         </div>
         <br>
-        <a href="https://www.paypal.com/donate/?hosted_button_id=KAXFV8A59BAWE" target="_blank" rel="noopener noreferrer"><img src="paypal.png" alt="paypal" style="height: 36px; border: 12px solid #fec453; border-radius: 8px; background-color: #fec453; margin-top: 10px; margin-right: 10px;"></a>
-        <!-- <a href="https://ko-fi.com/" target="_blank" rel="noopener noreferrer"><img src="kofi.png" alt="kofi" style="height: 60px; margin-right: 10px;"></a> -->
-        <!-- <a href="https://www.buymeacoffee.com/" target="_blank" rel="noopener noreferrer"><img src="buymeacoffee.png" alt="buymeacoffee" style="height: 60px !important; width: 217px !important; margin-top: 10px;"></a> -->
-        <br><br>
         <div>
             <form action="https://formspree.io/f/mqkjkarz" method="POST">
                 <div class="main" style="margin-bottom: 8px;"> Please leave your suggestion or the mistake you found here: </div>
@@ -786,6 +914,7 @@
                 <button type="submit" style="font-family: 'Roboto', sans-serif; font-size: 16px; margin-top: 4px;"> Send </button>
             </form>
         </div>
+        <br>
+        <a href="https://www.paypal.com/donate/?hosted_button_id=KAXFV8A59BAWE" target="_blank" rel="noopener noreferrer"><img src="images/paypal.png" alt="paypal" style="height: 36px; border: 12px solid #fec453; border-radius: 8px; background-color: #fec453; margin-top: 10px; margin-right: 10px;"></a>
     </body>
 </html>
-
